@@ -113,3 +113,13 @@ class FiltrarTareasByPersona(generics.ListAPIView):
             return Response({'success':True,'detail':'Se encontraron tareas','data':serializador.data},status=status.HTTP_200_OK)
             
         return Response({'success':True,'detail':'No se encontraron tareas'},status=status.HTTP_200_OK)
+
+
+class CrearUsuario(generics.CreateAPIView):
+    serializer_class = UsuarioSerializers
+    queryset = User.objects.all()
+    renderer_classes = [ResponseRender]
+    
+
+class LoginViews(TokenObtainPairView):
+    renderer_classes = [ResponseRender]

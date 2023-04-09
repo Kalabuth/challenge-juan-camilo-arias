@@ -19,8 +19,22 @@ class PersonaSerializer(serializers.ModelSerializer):
                     message = 'Ya existe un registro con el tipo de documento y el número de documento ingresado'
                 )
             ]
-
 class TareasSerializers(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = Tareas
+        
+class UsuarioSerializers(serializers.ModelSerializer):
+    
+    def validate_password(self, value) :
+        return make_password(value)
+    
+    class Meta:
+        fields = '__all__'
+        model = User
+        
+class LoginSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        fields = '__all__'
+        model= User
