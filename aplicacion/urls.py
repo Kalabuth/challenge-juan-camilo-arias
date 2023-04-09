@@ -16,6 +16,7 @@ urlpatterns = [
     path('eliminar-tarea/<str:pk>/',views.EliminarTareas.as_view(),name ='eliminar-tarea'),
     path('filtrar-tarea-by-fecha-limite/',views.FiltrarTareaByFechaLimite.as_view(),name ='filtrar-tarea-by-fecha-limite'),
     path('filtrar-tarea-by-persona/',views.FiltrarTareasByPersona.as_view(),name ='filtrar-tarea-by-persona'),
+    path('filtrar-tareas-by-rango-de-fechas/',views.FiltrarTareasByRangoFecha.as_view(),name='filtrar-tareas-by-rango-de-fechas'),
     
     #User
     path('crear-usuario/',views.CrearUsuario.as_view(),name='crear-usuario'),

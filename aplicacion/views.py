@@ -123,3 +123,26 @@ class CrearUsuario(generics.CreateAPIView):
 
 class LoginViews(TokenObtainPairView):
     renderer_classes = [ResponseRender]
+    
+
+class FiltrarTareasByRangoFecha(generics.ListAPIView):
+    
+    serializer_class = TareasSerializers
+    queryset = Tareas.objects.all()
+    permission_classes = [IsAuthenticated]
+    
+    def get(self,request):
+        
+        desde = request.query_params.get('desde')
+        hasta = request.query_params.get('hasta')
+        
+        fecha_desde_format = datetime.strptime(desde,'%Y-%m-%d').date()
+        fecha_hasta_format = datetime.strptime(hasta,'%Y-%m-%d').date()
+        
+        tareas = self.queryset.all().filter(fecha_limite__gte=fecha_desde_format, fecha_limite__lte = fecha_hasta_format)
+        
+        if tareas:
+            serializador = self.serializer_class(tareas,many=True)
+            return Response({'success':True,'detail':'Se encontraron tareas','data':serializador.data},status=status.HTTP_200_OK)
+        
+        return Response({'success':True,'detail':'No se encontraron tareas'},status=status.HTTP_200_OK)
