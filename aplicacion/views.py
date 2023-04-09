@@ -53,3 +53,63 @@ class FiltrarPersonaByDocumento(generics.ListAPIView):
         
         return Response({'success':True,'detail':'No se encontro a la persona'},status=status.HTTP_200_OK)
     
+
+   
+class ListarTareas(generics.ListAPIView):
+    serializer_class = TareasSerializers
+    queryset = Tareas.objects.all()
+    renderer_classes = [ResponseRender]
+    permission_classes = [IsAuthenticated]
+
+class CrearTareas(generics.CreateAPIView):
+    serializer_class = TareasSerializers
+    renderer_classes = [ResponseRender]
+    permission_classes = [IsAuthenticated]
+    
+class EliminarTareas(generics.DestroyAPIView):
+    serializer_class = TareasSerializers
+    queryset = Tareas.objects.all()
+    renderer_classes = [ResponseRender]
+    permission_classes = [IsAuthenticated]
+    
+class ActualizarTarea(generics.UpdateAPIView):
+    serializer_class = TareasSerializers
+    queryset = Tareas.objects.all()
+    renderer_classes = [ResponseRender]
+    permission_classes = [IsAuthenticated]
+    
+class FiltrarTareaByFechaLimite(generics.ListAPIView):
+    serializer_class = TareasSerializers
+    queryset = Tareas.objects.all()
+    permission_classes = [IsAuthenticated]
+    
+    def get (self,request):
+        fecha_limite = request.query_params.get('fecha_limite')
+        fecha_limite_format = datetime.strptime(fecha_limite,'%Y-%m-%d').date()
+        
+        tareas = Tareas.objects.filter(fecha_limite = fecha_limite_format)
+        
+        if tareas: 
+            serializador = self.serializer_class(tareas,many=True)
+            return Response({'success':True,'detail':'Se encontraron tareas','data':serializador.data},status=status.HTTP_200_OK)
+    
+        return Response({'success':True,'detail':'No se encontraron tareas'},status=status.HTTP_200_OK)
+    
+class FiltrarTareasByPersona(generics.ListAPIView):
+    serializer_class = TareasSerializers
+    queryset = Tareas.objects.all()
+    permission_classes = [IsAuthenticated]
+    
+    def get(self,request):
+        
+        nro_documento = request.query_params.get('nro_documento')
+        tipo_documento = request.query_params.get ('tipo_documento')
+        
+        tareas = self.queryset.all().filter(persona__numero_documento = nro_documento, persona__tipo_documento = tipo_documento )
+        
+        if tareas:
+            serializador = self.serializer_class(tareas,many = True)
+            
+            return Response({'success':True,'detail':'Se encontraron tareas','data':serializador.data},status=status.HTTP_200_OK)
+            
+        return Response({'success':True,'detail':'No se encontraron tareas'},status=status.HTTP_200_OK)

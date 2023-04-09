@@ -19,3 +19,8 @@ class PersonaSerializer(serializers.ModelSerializer):
                     message = 'Ya existe un registro con el tipo de documento y el número de documento ingresado'
                 )
             ]
+
+class TareasSerializers(serializers.ModelSerializer):
+    class Meta:
+        fields = '__all__'
+        model = Tareas
