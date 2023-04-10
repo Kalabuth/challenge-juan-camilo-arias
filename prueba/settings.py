@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'aplicacion'
+    'aplicacion',
+    "drf_yasg"
 ]
 
 AUTH_USER_MODEL="aplicacion.User"
@@ -57,6 +58,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'prueba.urls'
+
+
 
 TEMPLATES = [
     {

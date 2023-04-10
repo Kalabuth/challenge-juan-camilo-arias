@@ -7,7 +7,6 @@ from aplicacion.models import Personas, Tareas, User
 
 
 class PersonaSerializer(serializers.ModelSerializer):
-
     class Meta:
         fields = '__all__'
         model = Personas
@@ -32,9 +31,3 @@ class UsuarioSerializers(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = User
-        
-class LoginSerializer(serializers.ModelSerializer):
-    
-    class Meta:
-        fields = '__all__'
-        model= User

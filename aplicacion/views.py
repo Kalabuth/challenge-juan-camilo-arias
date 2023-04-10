@@ -8,7 +8,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.permissions import IsAuthenticated
 
 
-from aplicacion.serializadores import PersonaSerializer, TareasSerializers,UsuarioSerializers,LoginSerializer
+from aplicacion.serializadores import PersonaSerializer, TareasSerializers,UsuarioSerializers
 
 
 class ListPersonas(generics.ListAPIView):
@@ -21,7 +21,6 @@ class CreatePersona(generics.CreateAPIView):
     serializer_class = PersonaSerializer
     renderer_classes = [ResponseRender]
     permission_classes = [IsAuthenticated]
-    
 
 class EliminarPersona(generics.DestroyAPIView):
     serializer_class = PersonaSerializer
@@ -54,7 +53,6 @@ class FiltrarPersonaByDocumento(generics.ListAPIView):
         return Response({'success':True,'detail':'No se encontro a la persona'},status=status.HTTP_200_OK)
     
 
-   
 class ListarTareas(generics.ListAPIView):
     serializer_class = TareasSerializers
     queryset = Tareas.objects.all()
@@ -85,7 +83,7 @@ class FiltrarTareaByFechaLimite(generics.ListAPIView):
     
     def get (self,request):
         fecha_limite = request.query_params.get('fecha_limite')
-        fecha_limite_format = datetime.strptime(fecha_limite,'%Y-%m-%d').date()
+        fecha_limite_format = datetime.strptime(fecha_limite,'%Y-%m-%d').date() if fecha_limite else datetime.now().date()
         
         tareas = Tareas.objects.filter(fecha_limite = fecha_limite_format)
         
@@ -136,8 +134,8 @@ class FiltrarTareasByRangoFecha(generics.ListAPIView):
         desde = request.query_params.get('desde')
         hasta = request.query_params.get('hasta')
         
-        fecha_desde_format = datetime.strptime(desde,'%Y-%m-%d').date()
-        fecha_hasta_format = datetime.strptime(hasta,'%Y-%m-%d').date()
+        fecha_desde_format = datetime.strptime(desde,'%Y-%m-%d').date() if desde else datetime.now().date()
+        fecha_hasta_format = datetime.strptime(hasta,'%Y-%m-%d').date() if hasta else datetime.now().date()
         
         tareas = self.queryset.all().filter(fecha_limite__gte=fecha_desde_format, fecha_limite__lte = fecha_hasta_format)
         
