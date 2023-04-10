@@ -13,9 +13,15 @@ docker-compose up
 ```
 4. Después de esto ya debería estar corriendo todo correctamente.
 
+5. Para detener los contenedores se ejecuta el siguiente comando o con ctrl + C.
+
+```bash
+docker-compose down
+```
+
 ## Probar los endpoints
 
-1. Se debe importar la colección que se compartió en Postman.
+1. Se debe importar la colección en Postman, la colección de postman se puede obtener del siguiente link :https://api.postman.com/collections/24722045-614772ff-ac92-4a56-b868-d7c0d5bf9db7?access_key=PMAT-01GXNHVB4NQE54ZT1620G181Z5  se debe dar en el botón import y pegar el link enviado, o se puede descargar directamente en el correo enviado con las respuestas de la prueba técnina, en este correo se encuentra el archivo de la colección (Se encuentra como respuesta del correo enviado)
 2. Después, se debe crear un usuario (este endpoint se encuentra en la colección en la carpeta de Autenticación) para realizar la autenticación y poder consumir los servicios.
 3. Ya con el usuario creado, se debe proceder a la autenticación, para lo cual se consumirá el endpoint del Login (se encuentra en la carpeta de Autenticación). Este retornará un response como el siguiente, del cual se tomará el access token:
 ```json
@@ -41,8 +47,4 @@ docker-compose up
 * Se documento también cada EndPoint en Postman: https://documenter.getpostman.com/view/24722045/2s93XsYmHk
 
 
-
-
-
-
-
+El asunto del correo enviado es: Prueba Técnica - Dev Python - Ciomprix Juan Camilo Arias
